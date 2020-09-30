@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-4 black">
+        <div class="content-section mt-4">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+            </div>
+            {% endfor %}
+            {% if errors %}
+              {% for error in errors %}
+                <span class="text-danger">{{ error }}</span></br>
+              {% endfor %}
+            {%endif%}
+    <div class="card testimonial-card">
+    <div class="card-up indigo lighten-1"></div>
+    <div class="avatar mx-auto white">
+      <img src="{{profile_pic_path}}" class="rounded-circle account-img mt-2" alt="woman avatar">
+    </div>
+    <div class="card-body">
+      <h4 class="card-title text-center">{{current_user.username|title}}</h4>
+      <hr>
+      <p> {{current_user.email}} </p>
+      <p><i class="fas fa-quote-left"></i> {{current_user.bio}} <i class="fas fa-quote-right"></i> </p>
+      <button class="btn btn-sm btn-info" id="showform"> Update Profile</button>
+    </div>
+      
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+      <div class="container mt-4" >
+        <div id="profileupdate">
+          <h2>Update Your Profile Here</h2>
+            {{wtf.quick_form(form)}}
+        </div>
+      </div>
+  </div>
+</div>
+{% endblock %}
