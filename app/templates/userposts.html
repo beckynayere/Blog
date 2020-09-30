@@ -1,0 +1,58 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center mb-2">{{user.blog.count()}} Posts by {{ user.username }} </h1>
+        <div class="row">
+            <div class="col-md-2">
+                    
+            </div>
+            <div class="col-md-8">
+                {% for blog in blogs.items %}
+                    <div class="bg mb-2" >
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img class="rounded-circle blog-img mr-10" src="{{ url_for('static', filename='photos/' + blog.user.profile_pic_path) }}">
+                            </div>
+                            <div class="col-md-6">
+                                <p>By <span style="color: blue">{{blog.user.username}}</span>  on {{blog.posted.strftime('%d-%m-%Y')}}</p>
+                                <h3>Tittle: <a href="{{url_for('main.blog',id = blog.id)}}">{{blog.title}}</a></h3>
+                                <p>{{blog.content}}</p>
+                                <p>{{blog.comment.count()}} Comments</p>
+    
+                            </div>
+                            <div class="col-md-4">
+                                <form class="form-inline" action="{{url_for('main.comment',blog_id = blog.id)}}" method="POST">
+                                    <div class="md-form form-group">
+                                        <!-- <i class="fa fa-lock prefix"></i> -->
+                                        <label for="form92">Type your comment</label>
+                                        <input type="text"  class="form-control" name ="newcomment" required>
+                                    </div>
+                                    <div class="md-form form-group">
+                                        <button class="btn btn-sm btn-outline-info">Comment</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>  
+                        <hr> 
+                    </div>
+                {% endfor %}
+
+                {% for page_num in blogs.iter_pages(left_edge = 1, right_edge = 1, left_current=1, right_current = 2) %}
+                    {% if page_num %}
+                        {% if blogs.page == page_num %}
+                            <a href="{{url_for('main.user_posts',username = user.username,page = page_num)}}" class="btn btn-sm btn-info mb-2">{{ page_num }}</a>
+                        {% else%}
+                        <a href="{{url_for('main.user_posts',username = user.username,page = page_num)}}" class="btn btn-sm btn-outline-info mb-2">{{ page_num }}</a>
+                        {% endif %}
+                    {% else%}
+                        ...
+                    {% endif %}
+                {% endfor %}  
+
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+{% endblock %}
