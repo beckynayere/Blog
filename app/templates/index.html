@@ -1,0 +1,79 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <div class="container landing">
+        <div class="row ">
+                {% if current_user.is_authenticated %}
+                <div class="col-md-3 "><a class="btn btn-sm btn-info " id="ref" href="{{url_for('main.new_blog')}}">Post</a></div>
+                {% endif %}
+            
+            <div class="col-md-9 "><h1 >Welcome to Blog</h1></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 ">
+                {% for blog in blogs.items %}
+                    <div class="container bg mb-2">
+                        <hr>
+                        <div class="row ">
+                            <div class="col-md-2 ">
+                                    <img class="rounded-circle blog-img mr-10" src="{{ url_for('static', filename='photos/' + blog.user.profile_pic_path) }}">
+                                    <p id="usern"><a href="{{url_for('main.user_posts',username = blog.user.username)}}"><span  style="color: blue"><strong>{{blog.user.username | title}}</strong></span> </a> </p> 
+                            </div>
+                            <div class="col-md-10 pr-4 d-justify userblog">
+                                <p>Posted on : {{blog.posted.strftime('%d-%m-%Y')}}</p>
+                                <h4><a href="{{url_for('main.blog',id = blog.id)}}">{{blog.title | upper}}</a></h4>
+                                <p>{{blog.content}}</p>
+                                <p> <a class="btn btn-sm btn-info" href="{{url_for('main.blog',id = blog.id)}}" > Comment</a> {{blog.comment.count()}} Comments</p>
+                                
+                            </div>
+                        </div> 
+                        <hr>
+                    </div>
+                       
+                {% endfor %}
+
+                {% for page_num in blogs.iter_pages(left_edge = 1, right_edge = 1, left_current=1, right_current = 2) %}
+                    {% if page_num %}
+                        {% if blogs.page == page_num %}
+                            <a href="{{url_for('main.index',page = page_num)}}" class="btn btn-sm btn-info mb-2">{{ page_num }}</a>
+                        {% else%}
+                        <a href="{{url_for('main.index',page = page_num)}}" class="btn btn-sm btn-outline-info mb-2">{{ page_num }}</a>
+                        {% endif %}
+                    {% else%}
+                        ...
+                    {% endif %}
+                {% endfor %}  
+
+            </div>
+            <div class="col-md-4">
+                <div class="container">
+                    <div class="card cardquote">
+                        <div class="card-title">
+                            <h4>A quote by: <span style="color: rgb(3, 3, 3)">{{quote.author}}</span> </h4>
+                        </div>
+                        <p class="card-text">{{quote.quote}}</p>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    {% for message in get_flashed_messages() %}
+                    <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                    </div>
+                    {% endfor %}
+                    <form class="form-inline ml-2" action="{{url_for('main.subscribe')}}" method="POST">
+                        <div class="md-form form-group">
+                            <label class="white-color">Email Address...</label>
+                            <input type="email"  class="form-control " name ="subscriber" required>
+                        </div>
+                        <div class="md-form form-group">
+                            <button class="btn btn-sm btn-outline-info" id="subs">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
