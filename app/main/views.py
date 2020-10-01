@@ -109,7 +109,7 @@ def updateblog(blog_id):
 
 
 
-@main.route('/comment/<blog_id>', methods = ['Post','GET'])
+@main.route('/comment/<blog_id>', methods = ['GET','POST'])
 @login_required
 def comment(blog_id):
     blog = Blog.query.get(blog_id)
