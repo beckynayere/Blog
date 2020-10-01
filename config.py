@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 class Config:
@@ -8,7 +9,7 @@ class Config:
     SECRET_KEY = 'yes'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://Bryon:nayere@localhost/blog'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    UPLOADED_PHOTOS_DEST = 'app/static/images'
+    UPLOADED_PHOTOS_DEST = 'app/static/photos'
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
 
