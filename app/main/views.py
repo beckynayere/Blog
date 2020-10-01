@@ -125,7 +125,7 @@ def subscribe():
     new_subscriber.save_subscriber()
     mail_message("Subscribed to D-Blog","email/welcome_subscriber",new_subscriber.email,new_subscriber=new_subscriber)
     flash('Sucessfuly subscribed')
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.index', id=id))
 
 @main.route('/blog/<blog_id>/delete', methods = ['POST'])
 @login_required
