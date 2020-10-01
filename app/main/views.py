@@ -74,8 +74,11 @@ def new_blog():
         user_id =  current_user._get_current_object().id
         blog = Blog(title=title,content=content,user_id=user_id)
         blog.save()
-        for subscriber in subscribers:
-            mail_message("New Blog Post","email/new_blog",subscriber.email,blog=blog)
+        try:
+            for subscriber in subscribers:
+                mail_message("New Blog Post","email/new_blog",subscriber.email,blog=blog)
+        except:
+            mail='enter your mail'        
         return redirect(url_for('main.index'))
         flash('You Posted a new Blog')
     return render_template('newblog.html', form = form)
