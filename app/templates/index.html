@@ -18,7 +18,7 @@
                         <div class="row ">
                             <div class="col-md-2 ">
                                     <img class="rounded-circle blog-img mr-10" src="{{ url_for('static', filename='photos/' + blog.user.profile_pic_path) }}">
-                                    <p id="usern"><a href="{{url_for('main.user_posts',username = blog.user.username)}}"><span  style="color: blue"><strong>{{blog.user.username | title}}</strong></span> </a> </p> 
+                                    <p id="usern"><a href="{{url_for('main.user_posts',username = blog.user.username)}}"><span  style="color: purple"><strong>{{blog.user.username | title}}</strong></span> </a> </p> 
                             </div>
                             <div class="col-md-10 pr-4 d-justify userblog">
                                 <p>Posted on : {{blog.posted.strftime('%d-%m-%Y')}}</p>

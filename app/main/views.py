@@ -118,14 +118,14 @@ def comment(blog_id):
     new_comment.save()
     return redirect(url_for('main.blog',id = blog.id))
 
-@main.route('/subscribe',methods = ['POST','GET'])
+@main.route('/subscribe',methods = ['POST'])
 def subscribe():
     email = request.form.get('subscriber')
     new_subscriber = Subscriber(email = email)
     new_subscriber.save_subscriber()
     mail_message("Subscribed to D-Blog","email/welcome_subscriber",new_subscriber.email,new_subscriber=new_subscriber)
     flash('Sucessfuly subscribed')
-    return redirect(url_for('main.index', id=id))
+    return redirect(url_for('main.index'))
 
 @main.route('/blog/<blog_id>/delete', methods = ['POST'])
 @login_required
