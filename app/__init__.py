@@ -19,6 +19,7 @@ photos = UploadSet('photos',IMAGES)
 # Initialize
 def create_app():
     app = Flask(__name__)
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config.from_object(Config)
     from .auth import auth as authentication_blueprint
     from .main import main as main_blueprint
