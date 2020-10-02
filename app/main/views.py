@@ -109,7 +109,7 @@ def updateblog(blog_id):
 
 
 
-@main.route('/comment/<blog_id>', methods = ['GET','POST'])
+@main.route('/comment/<blog_id>', methods = ['POST','GET'])
 @login_required
 def comment(blog_id):
     blog = Blog.query.get(blog_id)
@@ -127,7 +127,7 @@ def subscribe():
     flash('Sucessfuly subscribed')
     return redirect(url_for('main.index'))
 
-@main.route('/blog/<blog_id>/delete', methods = ['POST'])
+@main.route('/blog/<blog_id>/delete', methods = ['POST','GET'])
 @login_required
 def delete_post(blog_id):
     blog = Blog.query.get(blog_id)
